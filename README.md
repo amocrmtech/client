@@ -7,7 +7,7 @@ $client = ClientFactory::buildCookies([
     'subdomain'   => 'your_subdomain',
     'login'       => 'your_login',
     'token'       => 'your_token',
-    'cookiesFile' => '@runtime/amo/cookies_{subdomain}.bin', // не обязательно, по умолчанию - такой
+    'cookiesFile' => '@runtime/amocrmtech/cookies_{subdomain}.bin', // не обязательно, по умолчанию - такой
 ]);
 
 $request = $client->get(['account']);
@@ -41,7 +41,6 @@ $data = $response->data;
             'subdomain'   => 'your_subdomain',
             'login'       => 'your_login',
             'token'       => 'your_token',
-            'cookiesFile' => '@runtime/amo/cookies_{subdomain}.bin', // не обязательно, по умолчанию - такой
         ]),
     ],
 // ...
@@ -56,7 +55,6 @@ $data = $response->data;
                 'subdomain'   => $params['your_subdomain'],
                 'login'       => $params['your_login'],
                 'token'       => $params['your_token'],
-                'cookiesFile' => '@runtime/amo/cookies_{subdomain}.bin', // не обязательно, по умолчанию - такой
             ]);
         },
     ],
