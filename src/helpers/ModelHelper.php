@@ -1,5 +1,4 @@
 <?php
-
 namespace amocrmtech\client\helpers;
 
 use amocrmtech\client\exceptions\InvalidModelException;
@@ -16,13 +15,15 @@ class ModelHelper
     /**
      * @param Model|array|callable|null $data
      * @param string                    $class
+     * @param string|null               $scenario
      * @param bool                      $validate
+     * @param bool                      $throw
      *
-     * @return mixed use dynamicReturnTypeMeta.json instead
+     * @return mixed user dynamicReturnTypeMeta.json instead
      * @throws InvalidConfigException
      * @throws InvalidModelException
      */
-    public static function ensure($data, $class, $validate = true)
+    public static function ensure($data, $class, $scenario = null, $validate = true, $throw = true)
     {
         if ($data === null) {
             $data = [];
@@ -30,8 +31,10 @@ class ModelHelper
 
         if ($data instanceof $class) {
             $model = $data;
+            $scenario && $model->setScenario($scenario);
         } elseif ($data instanceof Closure || is_callable($data)) {
             $model = $data();
+            $scenario && $model->setScenario($scenario);
         } elseif (is_array($data)) {
             /** @var Model $model */
             $model = Yii::createObject($class);
@@ -39,12 +42,18 @@ class ModelHelper
                 ? $model->formName()
                 : '';
 
+            $scenario && $model->setScenario($scenario);
             $model->load($data, $key);
         } else {
-            throw new InvalidConfigException('$data is not an array or $class instance');
+            $given = is_object($data)
+                ? get_class($data)
+                : gettype($data);
+
+            throw new InvalidConfigException("\$data is not an array or {$class} instance. {$given} given.");
         }
 
-        if ($validate && !$model->validate()) {
+        /** @noinspection NotOptimalIfConditionsInspection */
+        if ($validate && !$model->validate() && $throw) {
             throw new InvalidModelException($model);
         }
 
