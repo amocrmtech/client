@@ -35,7 +35,7 @@ class Config extends Model
             ['token', 'string'],
             ['token', 'required'],
 
-            ['cookiesFile', 'default', 'value' => '@runtime/amo/cookies_{subdomain}.bin'],
+            ['cookiesFile', 'default', 'value' => '@runtime/amocrmtech/cookies_{subdomain}.bin'],
             ['cookiesFile', 'string'],
             ['cookiesFile', 'validateCookiesFile'],
             ['cookiesFile', 'required'],
