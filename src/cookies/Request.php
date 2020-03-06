@@ -45,7 +45,7 @@ class Request extends \yii\httpclient\Request
     private function refreshCookies()
     {
         $config = $this->client->config;
-        $client = new Client([
+        $client = new \yii\httpclient\Client([
             'baseUrl'   => "https://{$config->subdomain}.amocrm.ru",
             'transport' => CurlTransport::class,
         ]);
