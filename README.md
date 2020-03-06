@@ -46,3 +46,19 @@ $data = $response->data;
     ],
 // ...
 ```
+
+### Ленивое создание при работе с composer-config-plugin
+```php
+//...
+    'components' => [
+        'amoClient' => static function(){
+            return ClientFactory::buildCookies([
+                'subdomain'   => $params['your_subdomain'],
+                'login'       => $params['your_login'],
+                'token'       => $params['your_token'],
+                'cookiesFile' => '@runtime/amo/cookies_{subdomain}.bin', // не обязательно, по умолчанию - такой
+            ]);
+        },
+    ],
+// ...
+```
