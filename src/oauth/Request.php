@@ -1,4 +1,5 @@
 <?php
+
 namespace amocrmtech\client\oauth;
 
 use RuntimeException;
@@ -24,16 +25,15 @@ class Request extends \yii\httpclient\Request
      */
     public function send()
     {
-        $this->addHeaders(['Authorization' => "Bearer {$this->client->config->accessToken}"]);
+        $config = $this->client->config;
+        $this->addHeaders(['Authorization' => "Bearer {$config->accessToken}"]);
 
         $response = parent::send();
 
         if (!$response->isOk && $response->statusCode === 401) {
-            $credentials                       = $this->refreshCredentials();
-            $this->client->config->accessToken = $credentials->access_token;
-
+            $this->refreshCredentials();
             $this->headers->remove('Authorization');
-            $this->addHeaders(['Authorization' => "Bearer {$this->client->config->accessToken}"]);
+            $this->addHeaders(['Authorization' => "Bearer {$config->accessToken}"]);
             $response = parent::send();
         }
 
