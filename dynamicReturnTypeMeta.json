@@ -1,0 +1,9 @@
+{
+  "methodCalls": [
+    {
+      "class": "\\amocrmtech\\client\\helpers\\ModelHelper",
+      "method": "ensure",
+      "position": 1
+    }
+  ]
+}

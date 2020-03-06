@@ -1,0 +1,28 @@
+{
+  "name": "amocrmtech/client",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.5.0",
+    "yiisoft/yii2": "~2.0",
+    "yiisoft/yii2-httpclient": "~2.0"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  },
+  "config": {
+    "process-timeout": 1800
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "amocrmtech\\client\\": "src/"
+    }
+  }
+}
