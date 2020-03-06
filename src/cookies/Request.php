@@ -42,7 +42,7 @@ class Request extends \yii\httpclient\Request
      * @throws Exception
      * @throws \yii\base\Exception
      */
-    private function refreshCookies()
+    protected function refreshCookies()
     {
         $config = $this->client->config;
         $client = new \yii\httpclient\Client([
