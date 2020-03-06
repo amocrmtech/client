@@ -32,3 +32,17 @@ $request = $client->get(['account']);
 $response = $request->send();
 $data = $response->data;
 ```
+
+### Ленивое создание для вставки в serviceLocator
+```php
+//...
+    'components' => [
+        'amoClient' => ClientFactory::lazyCookies([
+            'subdomain'   => 'your_subdomain',
+            'login'       => 'your_login',
+            'token'       => 'your_token',
+            'cookiesFile' => '@runtime/amo/cookies_{subdomain}.bin', // не обязательно, по умолчанию - такой
+        ]),
+    ],
+// ...
+```
