@@ -1,4 +1,5 @@
 <?php
+
 namespace amocrmtech\client\oauth;
 
 use yii\base\Model;
@@ -20,7 +21,6 @@ class Config extends Model
     public $integrationId;
     /** @var string */
     public $secretKey;
-
 
     /**
      * {@inheritDoc}
@@ -46,5 +46,4 @@ class Config extends Model
             ['secretKey', 'required'],
         ];
     }
-
 }

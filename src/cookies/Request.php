@@ -2,7 +2,11 @@
 
 namespace amocrmtech\client\cookies;
 
+use amocrmtech\client\Client;
+use amocrmtech\client\exceptions\InvalidModelException;
+use amocrmtech\client\helpers\ModelHelper;
 use RuntimeException;
+use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 use yii\httpclient\CurlTransport;
 use yii\httpclient\Exception;
@@ -17,6 +21,22 @@ class Request extends \yii\httpclient\Request
 
     /** @var Client */
     public $client;
+    /** @var Config */
+    public $config;
+
+    /**
+     * {@inheritDoc}
+     * @throws InvalidModelException
+     * @throws InvalidConfigException
+     */
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->config = ModelHelper::ensure($this->config, Config::class);
+
+        $this->client->baseUrl = "https://{$this->config->subdomain}.amocrm.ru/api/v2";
+
+    }
 
     /**
      * @return Response
@@ -25,7 +45,7 @@ class Request extends \yii\httpclient\Request
      */
     public function send()
     {
-        $this->addOptions(['cookieFile' => $this->client->config->cookiesFile]);
+        $this->addOptions(['cookieFile' => $this->config->cookiesFile]);
 
         $response = parent::send();
 
@@ -44,7 +64,7 @@ class Request extends \yii\httpclient\Request
      */
     protected function refreshCookies()
     {
-        $config = $this->client->config;
+        $config = $this->config;
         $client = new \yii\httpclient\Client([
             'baseUrl'   => "https://{$config->subdomain}.amocrm.ru",
             'transport' => CurlTransport::class,
