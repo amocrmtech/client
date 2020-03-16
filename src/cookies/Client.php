@@ -9,7 +9,7 @@ use yii\base\InvalidConfigException;
 /**
  *
  */
-class Client extends \yii\httpclient\Client
+class Client extends \amocrmtech\client\Client
 {
     /** @var Config */
     public $config;
