@@ -19,7 +19,7 @@ class ClientFactory
     /**
      * @param ConfigOAuth|array $config
      *
-     * @return ClientCookies
+     * @return ClientOAuth
      */
     public static function buildOAuth($config)
     {
