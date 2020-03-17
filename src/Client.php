@@ -23,8 +23,10 @@ class Client extends \yii\httpclient\Client
     public function __construct($config = [])
     {
         parent::__construct($config);
-        $this->locator = $this->locator ?: Yii::createObject(ServiceLocator::class);
-        $this->locator->setComponents($this->components);
+        $this->locator = Yii::createObject([
+            'class'      => ClientServiceLocator::class,
+            'components' => $this->components,
+        ], [$this]);
     }
 
     /**
